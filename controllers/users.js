@@ -1,4 +1,5 @@
 const { request, response } = require("express");
+const User = require("../models/user");
 
 const bcrypts = require("bcryptjs");
 
@@ -10,12 +11,13 @@ const usuariosGet = (req = request, res = response) => {
     page,
   });
 };
-const usuarioPost = (req = request, res = response) => {
-  const { name, email } = req.body;
-  res.json({
-    message: "POST usuarios - Controllers",
-    name,
-    email,
+const usuarioPost = async (req = request, res = response) => {
+  const { name, email, phone, password, pet } = req.body;
+  const user = new User({ name, email, phone, password, pet });
+  await user.save();
+  res.status(201).json({
+    message: "Usuario creado",
+    user,
   });
 };
 const usuarioPut = (req = request, res = response) => {
