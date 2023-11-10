@@ -48,6 +48,9 @@ const UserSchema = Schema({
         },
       },
     },
+    cuantity: {
+      type: Number,
+    },
 
     required: function () {
       return this.role === "USER_ROLE";
@@ -62,10 +65,10 @@ const UserSchema = Schema({
   },
 });
 
-// UserSchema.methods.toJSON = function () {
-//   const { __v, password, _id, ...usuario } = this.toObject();
-//   usuario.uid = _id;
-//   return usuario;
-// };
+UserSchema.methods.toJSON = function () {
+  const { __v, password, _id, ...user } = this.toObject();
+  user.uid = _id;
+  return user;
+};
 
 module.exports = model("User", UserSchema);

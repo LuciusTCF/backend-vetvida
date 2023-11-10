@@ -1,41 +1,63 @@
 const { request, response } = require("express");
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
-const bcrypts = require("bcryptjs");
-
-const usuariosGet = (req = request, res = response) => {
-  const { limit, page } = req.query;
-  res.json({
-    message: "GET usuarios - Controllers",
-    limit,
-    page,
+const usersGet = async (req = request, res = response) => {
+  const { limit = 15, from = 0 } = req.query;
+  const [total, users] = await Promise.all([
+    User.countDocuments({ state: true }),
+    User.find({ state: true }).limit(limit).skip(from),
+  ]);
+  res.status(200).json({
+    total,
+    users,
   });
 };
-const usuarioPost = async (req = request, res = response) => {
-  const { name, email, phone, password, pet } = req.body;
-  const user = new User({ name, email, phone, password, pet });
+const userPost = async (req = request, res = response) => {
+  const { name, email, phone, password, pet, role } = req.body;
+  const user = new User({ name, email, phone, password, pet, role });
+  const salt = bcrypt.genSaltSync();
+  user.password = bcrypt.hashSync(password, salt);
   await user.save();
   res.status(201).json({
     message: "Usuario creado",
     user,
   });
 };
-const usuarioPut = (req = request, res = response) => {
+const userPut = async (req = request, res) => {
   const { id } = req.params;
-  res.json({
-    message: "PUT usuarios - Controllers",
-    id,
+
+  const { password, _id, email, ...rest } = req.body;
+
+  const salt = bcrypt.genSaltSync();
+  rest.password = bcrypt.hashSync(password, salt);
+
+  const user = await User.findByIdAndUpdate(id, rest, { new: true });
+
+  res.status(200).json({
+    message: "Usuario actualizado",
+    user,
   });
 };
-const usuarioDelete = (req = request, res = response) => {
-  res.json({
-    message: "DELETE usuarios - Controllers",
+const userDelete = async (req = request, res = response) => {
+  const { id } = req.params;
+  const userDeleted = await User.findByIdAndUpdate(
+    id,
+    {
+      state: false,
+    },
+    { new: true }
+  );
+
+  res.status(200).json({
+    message: "Usuario eliminado",
+    userDeleted,
   });
 };
 
 module.exports = {
-  usuariosGet,
-  usuarioPost,
-  usuarioPut,
-  usuarioDelete,
+  usersGet,
+  userPost,
+  userPut,
+  userDelete,
 };
