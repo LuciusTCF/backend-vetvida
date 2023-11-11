@@ -23,9 +23,22 @@ const phoneExist = async (phone) => {
 };
 
 const userByIdExist = async (id) => {
-  const userExist = await User.findById(id);
-  if (!userExist) {
+  const userFound = await User.findById(id);
+  if (!userFound) {
     throw new Error(`El ID ${id} NO existe`);
+  }
+  if (!userFound.state) {
+    throw new Error(`El usuario ${userFound.name} está inactivo`);
+  }
+};
+
+const appointmentExist = async (id) => {
+  const appointmentFound = await Appointment.findById(id);
+  if (!appointmentFound) {
+    throw new Error(`El id ${id} no existe en la BD`);
+  }
+  if (!appointmentFound.state) {
+    throw new Error(`El turno ${appointmentFound.name} está inactivo`);
   }
 };
 
@@ -34,4 +47,5 @@ module.exports = {
   emailExist,
   phoneExist,
   userByIdExist,
+  appointmentExist,
 };
