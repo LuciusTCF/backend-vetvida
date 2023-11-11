@@ -21,9 +21,9 @@ router.post(
   "/",
   [
     check("name", "El nombre es obligatorio").notEmpty(),
-    check("password", "La contraseña debe tener más de 6 caracteres").isLength({
-      min: 6,
-    }),
+    check("password", "Debe tener mínimo 8 caracteres y máximo 16").matches(
+      /^.{8,16}$/
+    ),
     check("email", "EL email no es válido").isEmail(),
     check("email").custom(emailExist),
     check("phone").custom(phoneExist),
