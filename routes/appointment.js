@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
-
-//importar función para validar si la categoría existe
 const { appointmentExist } = require("../helpers/db-validators");
 
 const {

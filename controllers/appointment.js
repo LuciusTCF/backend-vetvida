@@ -7,10 +7,7 @@ const getAppointments = async (req = request, res = response) => {
 
   const [total, appointment] = await Promise.all([
     Appointment.countDocuments(consult),
-    Appointment.find(consult)
-      .skip(from)
-      .limit(limit)
-      .populate("user", "name email"),
+    Appointment.find(consult).skip(from).limit(limit),
   ]);
 
   res.status(200).json({
@@ -21,10 +18,7 @@ const getAppointments = async (req = request, res = response) => {
 
 const getAppointment = async (req = request, res = response) => {
   const { id } = req.params;
-  const appointment = await Appointment.findById(id).populate(
-    "user",
-    "name email"
-  );
+  const appointment = await Appointment.findById(id);
 
   res.status(200).json({
     appointment,
@@ -34,7 +28,6 @@ const getAppointment = async (req = request, res = response) => {
 const postAppointment = async (req = request, res = response) => {
   const { detail, veterinarian, pet, date } = req.body;
   const appointment = new Appointment({ detail, veterinarian, pet, date });
-  // const date = req.body.date;
   const appointmentDB = await Appointment.findOne({ date });
 
   if (appointmentDB) {
@@ -42,32 +35,21 @@ const postAppointment = async (req = request, res = response) => {
       msg: `El turno ${appointmentDB.date} ya está ocupado`,
     });
   }
-
-  const data = {
-    appointment,
-    user: req.user._id,
-  };
-
-  const appointmentData = new Appointment(data);
-  await appointmentData.save();
-  res.status(200).json(appointmentData);
+  await appointment.save();
+  res.status(200).json(appointment);
 };
 
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
-  const date = req.body.date.toUpperCase();
-  const user = req.user._id;
-  console.log(id);
-  const data = {
-    date,
-    user,
-  };
 
-  const appointment = await Appointment.findByIdAndUpdate(id, data, {
+  const { detail, veterinarian, pet, date, ...rest } = req.body;
+
+  const appointment = await Appointment.findByIdAndUpdate(id, rest, {
     new: true,
   });
 
   res.status(200).json({
+    message: "Turno actualizado",
     appointment,
   });
 };
