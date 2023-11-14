@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
+const { validateJWT } = require("../middlewares/validate-jwt");
+const { isAdminRole, hasRole } = require("../middlewares/validate-role");
 const { appointmentExist } = require("../helpers/db-validators");
 
 const {
@@ -28,6 +30,8 @@ router.get(
 router.post(
   "/",
   [
+    // validateJWT,
+    // hasRole("ADMIN_ROLE"),
     check("detail", "El detalle es obligatorio").notEmpty(),
     check(
       "veterinarian",
@@ -42,6 +46,8 @@ router.post(
 router.put(
   "/:id",
   [
+    validateJWT,
+    isAdminRole,
     check("id", "No es un id válido").isMongoId(),
     check("id").custom(appointmentExist),
     check("detail", "El detalle es obligatorio").notEmpty(),
@@ -59,6 +65,8 @@ router.put(
 router.delete(
   "/:id",
   [
+    validateJWT,
+    isAdminRole,
     check("id", "No es un id válido").isMongoId(),
     check("id").custom(appointmentExist),
     validateFields,

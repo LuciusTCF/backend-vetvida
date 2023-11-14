@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const Appointment = require("../models/appointment");
+// const bcrypt = require("bcryptjs");
 
 const getAppointments = async (req = request, res = response) => {
   const { limit = 15, from = 0 } = req.query;
@@ -7,7 +8,10 @@ const getAppointments = async (req = request, res = response) => {
 
   const [total, appointment] = await Promise.all([
     Appointment.countDocuments(consult),
-    Appointment.find(consult).skip(from).limit(limit),
+    Appointment.find(consult)
+      .skip(from)
+      .limit(limit)
+      .populate("user", "name email"),
   ]);
 
   res.status(200).json({
@@ -19,6 +23,10 @@ const getAppointments = async (req = request, res = response) => {
 const getAppointment = async (req = request, res = response) => {
   const { id } = req.params;
   const appointment = await Appointment.findById(id);
+  // .populate(
+  //   "user",
+  //   "name email"
+  // );
 
   res.status(200).json({
     appointment,

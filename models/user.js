@@ -22,8 +22,14 @@ const UserSchema = Schema({
 
   role: {
     type: String,
-    enum: ["ADMIN_ROLE", "USER_ROLE"],
-    default: "USER_ROLE",
+    enum: [
+      "ADMIN_ROLE",
+      "USER_ROLE_NP",
+      "USER_ROLE_P1",
+      "USER_ROLE_P2",
+      "USER_ROLE_P3",
+    ],
+    default: "USER_ROLE_NP",
   },
   pet: {
     type: Array,
@@ -53,7 +59,7 @@ const UserSchema = Schema({
     },
 
     required: function () {
-      return this.role === "USER_ROLE";
+      return this.role === "USER_ROLE_NP";
     },
   },
   img: {
