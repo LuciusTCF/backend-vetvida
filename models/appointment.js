@@ -23,11 +23,11 @@ const AppointmentSchema = Schema({
     required: true,
     default: true,
   },
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 module.exports = model("Appointment", AppointmentSchema);
