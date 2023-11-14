@@ -22,13 +22,13 @@ const UserSchema = Schema({
 
   role: {
     type: String,
-    enum: [
-      "ADMIN_ROLE",
-      "USER_ROLE_NP",
-      "USER_ROLE_P1",
-      "USER_ROLE_P2",
-      "USER_ROLE_P3",
-    ],
+    // enum: [
+    //   "ADMIN_ROLE",
+    //   "USER_ROLE_NP",
+    //   "USER_ROLE_P1",
+    //   "USER_ROLE_P2",
+    //   "USER_ROLE_P3",
+    // ],
     default: "USER_ROLE_NP",
   },
   pet: {
