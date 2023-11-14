@@ -30,7 +30,7 @@ router.get(
 router.post(
   "/",
   [
-    // validateJWT,
+    validateJWT,
     // hasRole("ADMIN_ROLE"),
     check("detail", "El detalle es obligatorio").notEmpty(),
     check(
@@ -39,6 +39,7 @@ router.post(
     ).notEmpty(),
     check("pet", "El nombre de la mascota es obligatorio").notEmpty(),
     check("date", "La fecha es obligatoria").notEmpty(),
+    validateFields,
   ],
   postAppointment
 );
