@@ -4,6 +4,8 @@ const { validateFields } = require("../middlewares/validate-fields");
 
 //importar función para validar si la categoría existe
 const { appointmentExist } = require("../helpers/db-validators");
+const validateJWT = require("../middlewares/validate-jwt");
+
 
 const {
   postAppointment,
@@ -12,6 +14,7 @@ const {
   putAppointment,
   deleteAppointment,
 } = require("../controllers/appointment");
+
 
 const router = Router();
 
@@ -30,6 +33,7 @@ router.get(
 router.post(
   "/",
   [
+    validateJWT,
     check("detail", "El detalle es obligatorio").notEmpty(),
     check(
       "veterinarian",
@@ -44,6 +48,7 @@ router.post(
 router.put(
   "/:id",
   [
+    validateJWT,
     check("id", "No es un id válido").isMongoId(),
     check("id").custom(appointmentExist),
     check("detail", "El detalle es obligatorio").notEmpty(),
@@ -61,6 +66,7 @@ router.put(
 router.delete(
   "/:id",
   [
+    validateJWT,
     check("id", "No es un id válido").isMongoId(),
     check("id").custom(appointmentExist),
     validateFields,

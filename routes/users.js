@@ -16,9 +16,11 @@ const {
 } = require("../controllers/users");
 
 
+
 const router = Router();
 
-router.get("/",[ validateJWT ],usersGet);
+router.get("/",[ validateJWT ],
+  usersGet);
 router.post(
   "/",
   [
