@@ -1,5 +1,6 @@
 const Role = require("../models/role");
 const User = require("../models/user");
+const Appointment = require("../models/appointment");
 
 const isRoleValid = async (role = "USER_ROLE_NP") => {
   const roleExist = await Role.findOne({ role });
