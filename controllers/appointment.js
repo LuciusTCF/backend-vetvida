@@ -3,7 +3,7 @@ const Appointment = require("../models/appointment");
 // const bcrypt = require("bcryptjs");
 
 const getAppointments = async (req = request, res = response) => {
-  const { limit = 15, from = 0 } = req.query;
+  const { limit = 10, from = 0 } = req.query;
   const consult = { state: true };
 
   const [total, appointment] = await Promise.all([
@@ -56,9 +56,11 @@ const postAppointment = async (req = request, res = response) => {
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const { detail, veterinarian, pet, date, ...rest } = req.body;
+  const { detail, veterinarian, pet, date, state, user } = req.body;
 
-  const appointment = await Appointment.findByIdAndUpdate(id, rest, {
+  const data = { id, detail, veterinarian, pet, date, state, user };
+
+  const appointment = await Appointment.findByIdAndUpdate(id, data, {
     new: true,
   });
 
