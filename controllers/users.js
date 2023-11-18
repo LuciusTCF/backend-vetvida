@@ -47,9 +47,9 @@ const userPut = async (req = request, res = response) => {
     user = await User.findByIdAndUpdate(id, rest, { new: true });
   }
 
-  res.json({
-    message: console.log(error),
-  });
+  // res.json({
+  //   message: console.log(error),
+  // });
   res.status(200).json({
     message: "Usuario actualizado",
     user,

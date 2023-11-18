@@ -42,6 +42,17 @@ const UserSchema = Schema({
         },
         specie: {
           type: String,
+          enum: [
+            "Ave",
+            "Bovino",
+            "Canino",
+            "Caprino",
+            "Equino",
+            "Exótico",
+            "Felino",
+            "Porcino",
+            "Ovino",
+          ],
           required: [true, "La especie es obligatoria"],
         },
         breed: {
@@ -58,9 +69,9 @@ const UserSchema = Schema({
       type: Number,
     },
 
-    required: function () {
-      return this.role === "USER_ROLE_NP";
-    },
+    // required: function () {
+    //   return this.role === "USER_ROLE_NP";
+    // },
   },
   img: {
     type: String,
