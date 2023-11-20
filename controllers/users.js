@@ -27,12 +27,25 @@ const userPost = async (req = request, res = response) => {
 const userPut = async (req = request, res) => {
   const { id } = req.params;
 
-  const { password, _id, email, ...rest } = req.body;
+  const { password, _id, email,item, ...rest } = req.body;
 
-  const salt = bcrypt.genSaltSync();
-  rest.password = bcrypt.hashSync(password, salt);
+  let user = null;
 
-  const user = await User.findByIdAndUpdate(id, rest, { new: true });
+  if(password){
+    const salt = bcrypt.genSaltSync();
+    rest.password = bcrypt.hashSync(password, salt);
+  }
+  if(item){
+    user = await User.findByIdAndUpdate(
+      id,
+      { $push: { pet: item } },
+      { new: true });
+  }
+  else{
+    user = await User.findByIdAndUpdate(id, rest, { new: true });
+  }
+
+   
 
   res.status(200).json({
     message: "Usuario actualizado",
