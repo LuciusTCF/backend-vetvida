@@ -25,7 +25,7 @@ const userPost = async (req = request, res = response) => {
   });
 };
 const userPut = async (req = request, res = response) => {
-  const { id } = req.params;
+  let { id } = req.params;
 
   const { password, _id, email, item, ...rest } = req.body;
 
@@ -46,15 +46,30 @@ const userPut = async (req = request, res = response) => {
   } else {
     user = await User.findByIdAndUpdate(id, rest, { new: true });
   }
-
-  // res.json({
-  //   message: console.log(error),
-  // });
   res.status(200).json({
     message: "Usuario actualizado",
     user,
   });
 };
+// const userPut = async (req = request, res = response) => {
+//   const { id } = req.params;
+
+//   const { name, password, _id, email, phone, pet } = req.body;
+
+//   const data = { name, password, _id, email, phone, pet };
+
+//   if (password) {
+//     const salt = bcrypt.genSaltSync();
+//     data.password = bcrypt.hashSync(password, salt);
+//   }
+
+//   const user = await User.findByIdAndUpdate(id, data, { new: true });
+
+//   res.status(200).json({
+//     message: "Usuario actualizado",
+//     user,
+//   });
+// };
 const userDelete = async (req = request, res = response) => {
   const { id } = req.params;
   const userDeleted = await User.findByIdAndUpdate(

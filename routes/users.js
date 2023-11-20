@@ -37,7 +37,7 @@ router.post(
 router.put(
   "/:id",
   [
-    // validateJWT,
+    validateJWT,
     check("id", "No es un ID válido").isMongoId,
     check("id").custom(userByIdExist),
     check("role").custom(isRoleValid),
