@@ -1,11 +1,29 @@
 const Role = require("../models/role");
 const User = require("../models/user");
 const Appointment = require("../models/appointment");
+const Veterinarian = require("../models/veterinarian");
+const Specie = require("../models/specie");
 
 const isRoleValid = async (role = "USER_ROLE_NP") => {
   const roleExist = await Role.findOne({ role });
   if (!roleExist) {
     throw new Error(`El rol ${role} no está registrado en la BD`);
+  }
+};
+
+const isVetValid = async (veterinarian) => {
+  const vetExist = await Veterinarian.findOne({ veterinarian });
+  if (!vetExist) {
+    throw new Error(
+      `El veterinario ${veterinarian} no está registrado en la BD`
+    );
+  }
+};
+
+const isSpecieValid = async (specie) => {
+  const specieExist = await Specie.findOne({ specie });
+  if (!specieExist) {
+    throw new Error(`La especie ${specie} no está registrada en la BD`);
   }
 };
 
@@ -45,6 +63,8 @@ const appointmentExist = async (id) => {
 
 module.exports = {
   isRoleValid,
+  isVetValid,
+  isSpecieValid,
   emailExist,
   phoneExist,
   userByIdExist,

@@ -8,6 +8,7 @@ const {
   emailExist,
   phoneExist,
   userByIdExist,
+  isSpecieValid,
 } = require("../helpers/db-validators");
 const {
   usersGet,
@@ -30,6 +31,7 @@ router.post(
     check("email").custom(emailExist),
     check("phone").custom(phoneExist),
     check("role").custom(isRoleValid),
+    check("specie").custom(isSpecieValid),
     validateFields,
   ],
   userPost
@@ -41,6 +43,7 @@ router.put(
     check("id", "No es un ID válido").isMongoId,
     check("id").custom(userByIdExist),
     check("role").custom(isRoleValid),
+    check("specie").custom(isSpecieValid),
     validateFields,
   ],
   userPut
