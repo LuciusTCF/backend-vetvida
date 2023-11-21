@@ -11,7 +11,7 @@ const UserSchema = Schema({
     unique: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, "El teléfono es obligatorio"],
     unique: true,
   },
@@ -22,13 +22,6 @@ const UserSchema = Schema({
 
   role: {
     type: String,
-    // enum: [
-    //   "ADMIN_ROLE",
-    //   "USER_ROLE_NP",
-    //   "USER_ROLE_P1",
-    //   "USER_ROLE_P2",
-    //   "USER_ROLE_P3",
-    // ],
     default: "USER_ROLE_NP",
   },
   pet: {
@@ -42,17 +35,7 @@ const UserSchema = Schema({
         },
         specie: {
           type: String,
-          enum: [
-            "Ave",
-            "Bovino",
-            "Canino",
-            "Caprino",
-            "Equino",
-            "Exótico",
-            "Felino",
-            "Porcino",
-            "Ovino",
-          ],
+          // enum: ["Ave", "Canino", "Felino", "Roedor"],
           required: [true, "La especie es obligatoria"],
         },
         breed: {
@@ -60,18 +43,11 @@ const UserSchema = Schema({
           required: [true, "La raza es obligatoria"],
         },
         age: {
-          type: Number,
+          type: String,
           required: [true, "La edad es obligatoria"],
         },
       },
     },
-    cuantity: {
-      type: Number,
-    },
-
-    // required: function () {
-    //   return this.role === "USER_ROLE_NP";
-    // },
   },
   img: {
     type: String,
