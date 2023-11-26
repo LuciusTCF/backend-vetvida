@@ -6,7 +6,9 @@ const usersGet = async (req = request, res = response) => {
   const { limit = 10, from = 0 } = req.query;
   const [total, users] = await Promise.all([
     User.countDocuments({ state: true }),
-    User.find({ state: true }).limit(limit)
+
+    User.find({ state: true }).limit(limit),
+
     // .skip(from),
   ]);
   res.status(200).json({
@@ -75,9 +77,7 @@ const userDelete = async (req = request, res = response) => {
   const { id } = req.params;
   const userDeleted = await User.findByIdAndUpdate(
     id,
-    {
-      state: false,
-    },
+    { state: false },
     { new: true }
   );
 

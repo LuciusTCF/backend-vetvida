@@ -28,6 +28,7 @@ const isSpecieValid = async (specie) => {
 };
 
 
+
 const emailExist = async (email) => {
   const emailFound = await User.findOne({ email });
   if (emailFound) {
@@ -55,7 +56,7 @@ const userByIdExist = async (id) => {
 const appointmentExist = async (id) => {
   const appointmentFound = await Appointment.findById(id);
   if (!appointmentFound) {
-    throw new Error(`El id ${id} no existe en la BD`);
+    throw new Error(`El ID ${id} no existe en la BD`);
   }
   if (!appointmentFound.state) {
     throw new Error(`El turno ${appointmentFound.name} está inactivo`);

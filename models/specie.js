@@ -7,4 +7,6 @@ const SpecieSchema = Schema({
   },
 });
 
+
 module.exports = model("Specie", SpecieSchema);
+

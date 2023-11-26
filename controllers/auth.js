@@ -1,3 +1,4 @@
+
 const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 const User = require('../models/user');
@@ -29,17 +30,20 @@ const login = async (req = request, res = response) => {
         }
 
 
-        const token = await generateJWT(user.id);
-        res.status(200).json({
-            user, token
-        })
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            msg: "Comuníquese con el administrador ⚠️"
-        });
-    }
-}
+    const token = await generateJWT(user.id);
+    res.status(200).json({
+      user,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Comuníquese con el administrador ⚠️",
+    });
+  }
+};
+
+
 const getId = (req = request, res = response) => {
     const { id, role } = req.user;
 
@@ -50,4 +54,6 @@ const getId = (req = request, res = response) => {
 };
 
 
+
 module.exports = { login, getId } 
+

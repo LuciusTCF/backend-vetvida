@@ -1,3 +1,4 @@
+
 const jwt = require('jsonwebtoken');
 
 const generateJWT = (uid) => {
@@ -15,3 +16,4 @@ const generateJWT = (uid) => {
 }
 
 module.exports = { generateJWT }
+

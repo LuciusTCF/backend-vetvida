@@ -7,4 +7,6 @@ const VetSchema = Schema({
   },
 });
 
+
 module.exports = model("Veterinarian", VetSchema);
+

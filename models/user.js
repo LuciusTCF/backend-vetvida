@@ -35,8 +35,9 @@ const UserSchema = Schema({
         },
         specie: {
           type: String,
-           // enum: ["Ave", "Canino", "Felino", "Roedor"],
-          required: [true, "La especie es obligatoria"],
+
+          // enum: ["Ave", "Canino", "Felino", "Roedor"],
+         required: [true, "La especie es obligatoria"],
         },
         breed: {
           type: String,
@@ -49,14 +50,16 @@ const UserSchema = Schema({
       },
     },
   },
-    img: {
-      type: String,
-    },
-    state: {
-      type: Boolean,
-      default: true,
-    },
-  });
+
+
+  img: {
+    type: String,
+  },
+  state: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 
 UserSchema.methods.toJSON = function () {

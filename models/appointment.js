@@ -3,16 +3,19 @@ const { Schema, model } = require("mongoose");
 const AppointmentSchema = Schema({
   detail: {
     type: String,
-    required: [true, "El detalle es obligatorio"]
+
+    required: [true, "El detalle es obligatorio"],
   },
   veterinarian: {
     type: String,
-     // enum: ["José Luis Olivares", "Raúl Álvarez"],
+    // enum: ["José Luis Olivares", "Raúl Álvarez"],
     required: [true, "El nombre del veterinario es obligatorio"],
   },
   pet: {
     type: String,
-    required:  [true, "El nombre de la mascota es obligatorio"],
+
+    required: [true, "El nombre de la mascota es obligatorio"],
+
   },
   date: {
     type: Date,
@@ -22,8 +25,8 @@ const AppointmentSchema = Schema({
   },
   state: {
     type: Boolean,
-    default: true,
     required: true,
+    default: true,
   },
   user: {
     type: Schema.Types.ObjectId,
