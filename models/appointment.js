@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const AppointmentSchema = Schema({
   detail: {
     type: String,
+
     required: [true, "El detalle es obligatorio"],
   },
   veterinarian: {
@@ -12,7 +13,9 @@ const AppointmentSchema = Schema({
   },
   pet: {
     type: String,
+
     required: [true, "El nombre de la mascota es obligatorio"],
+
   },
   date: {
     type: Date,
