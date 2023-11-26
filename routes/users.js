@@ -40,7 +40,7 @@ router.put(
   "/:id",
   [
     validateJWT,
-    check("id", "No es un ID válido").isMongoId,
+    check("id", "No es un ID válido").isMongoId(),
     check("id").custom(userByIdExist),
     check("role").custom(isRoleValid),
     check("specie").custom(isSpecieValid),
@@ -53,7 +53,7 @@ router.delete(
   [
     validateJWT,
     isAdminRole,
-    check("id", "No es un ID válido").isMongoId,
+    check("id", "No es un ID válido").isMongoId(),
     check("id").custom(userByIdExist),
     validateFields,
   ],
