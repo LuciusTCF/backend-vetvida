@@ -1,11 +1,14 @@
 const { Router } = require('express');
 const { check } = require("express-validator");
 const { validateFields } = require('../middlewares/validate-fields');
-const { login } = require('../controllers/auth');
+const { login, getId } = require('../controllers/auth');
+const { validateJWT } = require("../middlewares/validate-jwt");
+
 
 
 const router = Router();
 
+router.get("/", [validateJWT],getId);
 router.post("/login",
 [
     check("email","Formato de correo electrónico").isEmail(),

@@ -1,14 +1,15 @@
 const { request, response } = require("express");
 const Appointment = require("../models/appointment");
+// const bcrypt = require("bcryptjs");
 
 const getAppointments = async (req = request, res = response) => {
-  const { limit = 15, from = 0 } = req.query;
+  const { limit = 10, from = 0 } = req.query;
   const consult = { state: true };
 
   const [total, appointment] = await Promise.all([
     Appointment.countDocuments(consult),
     Appointment.find(consult)
-      .skip(from)
+      // .skip(from)
       .limit(limit)
       .populate("user", "name email"),
   ]);
@@ -18,6 +19,7 @@ const getAppointments = async (req = request, res = response) => {
     appointment,
   });
 };
+
 
 const getAppointment = async (req = request, res = response) => {
   const { id } = req.params;
@@ -33,8 +35,10 @@ const getAppointment = async (req = request, res = response) => {
 
 const postAppointment = async (req = request, res = response) => {
   const { detail, veterinarian, pet, date } = req.body;
-  const appointment = new Appointment({ detail, veterinarian, pet, date });
-  // const date = req.body.date;
+  const user = req.user._id;
+
+  
+  const appointment = new Appointment({ detail, veterinarian, pet, date,user});
   const appointmentDB = await Appointment.findOne({ date });
 
   if (appointmentDB) {
@@ -42,25 +46,16 @@ const postAppointment = async (req = request, res = response) => {
       msg: `El turno ${appointmentDB.date} ya está ocupado`,
     });
   }
-
-  const data = {
-    appointment,
-    user: req.user._id,
-  };
-
-  const appointmentData = new Appointment(data);
-  await appointmentData.save();
-  res.status(200).json(appointmentData);
+  await appointment.save();
+  res.status(200).json(appointment);
 };
 
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
-  const date = req.body.date.toUpperCase();
-  const user = req.user._id;
-  console.log(id);
+  const { detail, veterinarian, pet, date, state, user } = req.body;
   const data = {
-    date,
-    user,
+    id,
+    detail, veterinarian, pet, date, state, user
   };
 
   const appointment = await Appointment.findByIdAndUpdate(id, data, {
@@ -68,6 +63,7 @@ const putAppointment = async (req = request, res = response) => {
   });
 
   res.status(200).json({
+    message: "Turno actualizado",
     appointment,
   });
 };

@@ -11,7 +11,7 @@ const UserSchema = Schema({
     unique: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, "El teléfono es obligatorio"],
     unique: true,
   },
@@ -22,8 +22,7 @@ const UserSchema = Schema({
 
   role: {
     type: String,
-    enum: ["ADMIN_ROLE", "USER_ROLE"],
-    default: "USER_ROLE",
+    default: "USER_ROLE_NP",
   },
   pet: {
     type: Array,
@@ -36,6 +35,7 @@ const UserSchema = Schema({
         },
         specie: {
           type: String,
+           // enum: ["Ave", "Canino", "Felino", "Roedor"],
           required: [true, "La especie es obligatoria"],
         },
         breed: {
@@ -43,27 +43,21 @@ const UserSchema = Schema({
           required: [true, "La raza es obligatoria"],
         },
         age: {
-          type: Number,
+          type: String,
           required: [true, "La edad es obligatoria"],
         },
       },
     },
-    cuantity: {
-      type: Number,
+  },
+    img: {
+      type: String,
     },
+    state: {
+      type: Boolean,
+      default: true,
+    },
+  });
 
-    required: function () {
-      return this.role === "USER_ROLE";
-    },
-  },
-  img: {
-    type: String,
-  },
-  state: {
-    type: Boolean,
-    default: true,
-  },
-});
 
 UserSchema.methods.toJSON = function () {
   const { __v, password, _id, ...user } = this.toObject();
