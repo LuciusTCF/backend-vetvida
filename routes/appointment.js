@@ -2,11 +2,8 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
-const { isAdminRole, hasRole } = require("../middlewares/validate-role");
-
+const { isAdminRole } = require("../middlewares/validate-role");
 const { appointmentExist, isVetValid } = require("../helpers/db-validators");
-
-
 const {
   postAppointment,
   getAppointments,
@@ -14,7 +11,6 @@ const {
   putAppointment,
   deleteAppointment,
 } = require("../controllers/appointment");
-
 
 const router = Router();
 
@@ -50,7 +46,6 @@ router.post(
     check("veterinarian").custom(isVetValid),
 
     validateFields,
-
   ],
   postAppointment
 );
