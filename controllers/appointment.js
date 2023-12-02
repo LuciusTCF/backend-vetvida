@@ -63,16 +63,19 @@ const putAppointment = async (req = request, res = response) => {
 <
 
   const { detail, veterinarian, pet, date, state, user } = req.body;
-  const data = {
-    id,
-    detail, veterinarian, pet, date, state, user
-  };
-  const appointmentDB = await Appointment.findOne({ date })
+
+
+  const data = { id, detail, veterinarian, pet, date, state, user };
+
+  const appointmentDB = await Appointment.findOne({ date });
+
+
   if (appointmentDB) {
     return res.status(400).json({
       msg: `El turno ${appointmentDB.date} ya está ocupado`,
     });
   }
+
   const appointment = await Appointment.findByIdAndUpdate(id, data, {
     new: true,
   });

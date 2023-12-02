@@ -59,7 +59,7 @@ const appointmentExist = async (id) => {
     throw new Error(`El ID ${id} no existe en la BD`);
   }
   if (!appointmentFound.state) {
-    throw new Error(`El turno ${appointmentFound.name} está inactivo`);
+    throw new Error(`El turno ${appointmentFound.date} está inactivo`);
   }
 };
 

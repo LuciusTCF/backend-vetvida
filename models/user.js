@@ -29,7 +29,7 @@ const UserSchema = Schema({
     items: {
       type: Object,
       properties: {
-        name: {
+        namepet: {
           type: String,
           required: [true, "El nombre es obligatorio"],
         },

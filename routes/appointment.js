@@ -37,7 +37,9 @@ router.post(
   "/",
   [
     validateJWT,
+
     hasRole("ADMIN_ROLE"),
+
     check("detail", "El detalle es obligatorio").notEmpty(),
     check(
       "veterinarian",
