@@ -7,10 +7,7 @@ const isAdminRole = (req = request, res = response, next) => {
     });
   }
 
-  //obtener los datos necesarios
   const { role, name } = req.user;
-
-  //si el rol es ADMIN_ROLE
 
   if (role !== "ADMIN_ROLE") {
     return res.status(401).json({
@@ -41,7 +38,5 @@ const hasRole = (...roles) => {
 
 module.exports = {
   isAdminRole,
-
-  hasRole
-
+  hasRole,
 };

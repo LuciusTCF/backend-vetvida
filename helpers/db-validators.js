@@ -27,8 +27,6 @@ const isSpecieValid = async (specie) => {
   }
 };
 
-
-
 const emailExist = async (email) => {
   const emailFound = await User.findOne({ email });
   if (emailFound) {

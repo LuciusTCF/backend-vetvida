@@ -48,8 +48,6 @@ const UserSchema = Schema({
       },
     },
   },
-
-
   img: {
     type: String,
   },
@@ -58,7 +56,6 @@ const UserSchema = Schema({
     default: true,
   },
 });
-
 
 UserSchema.methods.toJSON = function () {
   const { __v, password, _id, ...user } = this.toObject();
