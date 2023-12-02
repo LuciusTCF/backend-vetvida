@@ -16,6 +16,9 @@ const router = Router();
 
 router.get("/", getAppointments);
 
+
+
+
 router.get(
   "/:id",
   [
@@ -30,6 +33,9 @@ router.post(
   "/",
   [
     validateJWT,
+
+    hasRole("ADMIN_ROLE"),
+
     check("detail", "El detalle es obligatorio").notEmpty(),
     check(
       "veterinarian",
