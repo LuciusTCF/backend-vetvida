@@ -19,6 +19,7 @@ const getAppointments = async (req = request, res = response) => {
   });
 };
 
+
 const getAppointment = async (req = request, res = response) => {
   const { id } = req.params;
   const appointment = await Appointment.findById(id).populate(
@@ -34,6 +35,8 @@ const getAppointment = async (req = request, res = response) => {
 const postAppointment = async (req = request, res = response) => {
   const { detail, veterinarian, pet, date } = req.body;
   const user = req.user._id;
+
+
   const appointment = new Appointment({
     detail,
     veterinarian,
@@ -41,6 +44,7 @@ const postAppointment = async (req = request, res = response) => {
     date,
     user,
   });
+
   const appointmentDB = await Appointment.findOne({ date });
 
   if (appointmentDB) {
@@ -54,6 +58,7 @@ const postAppointment = async (req = request, res = response) => {
 
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
+<
 
   const { detail, veterinarian, pet, date, state, user } = req.body;
 

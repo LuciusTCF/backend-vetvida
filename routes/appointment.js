@@ -3,7 +3,9 @@ const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const { isAdminRole, hasRole } = require("../middlewares/validate-role");
+
 const { appointmentExist, isVetValid } = require("../helpers/db-validators");
+
 
 const {
   postAppointment,
@@ -12,6 +14,7 @@ const {
   putAppointment,
   deleteAppointment,
 } = require("../controllers/appointment");
+
 
 const router = Router();
 
@@ -39,7 +42,9 @@ router.post(
     check("pet", "El nombre de la mascota es obligatorio").notEmpty(),
     check("date", "La fecha es obligatoria").notEmpty(),
     check("veterinarian").custom(isVetValid),
+
     validateFields,
+
   ],
   postAppointment
 );

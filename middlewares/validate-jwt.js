@@ -1,3 +1,4 @@
+
 const { request, response } = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
@@ -18,6 +19,7 @@ const validateJWT = async (req = request, res = response, next) => {
       return res.status(401).json({
         msg: "El token no se encuentra vigente",
       });
+
     }
 
     if (!user.state) {
@@ -25,6 +27,7 @@ const validateJWT = async (req = request, res = response, next) => {
         msg: "El token no se encuentra vigente",
       });
     }
+
     req.user = user;
     next();
   } catch (error) {
@@ -36,3 +39,4 @@ const validateJWT = async (req = request, res = response, next) => {
 };
 
 module.exports = { validateJWT };
+
