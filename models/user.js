@@ -29,13 +29,12 @@ const UserSchema = Schema({
     items: {
       type: Object,
       properties: {
-        name: {
+        namepet: {
           type: String,
           required: [true, "El nombre es obligatorio"],
         },
         specie: {
           type: String,
-          // enum: ["Ave", "Canino", "Felino", "Roedor"],
           required: [true, "La especie es obligatoria"],
         },
         breed: {
