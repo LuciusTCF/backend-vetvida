@@ -6,8 +6,7 @@ const usersGet = async (req = request, res = response) => {
   const { limit = 10, from = 0 } = req.query;
   const [total, users] = await Promise.all([
     User.countDocuments({ state: true }),
-    User.find({ state: true }).limit(limit),
-    // .skip(from),
+    User.find({ state: true }).limit(limit).skip(parseInt(from)),
   ]);
   res.status(200).json({
     total,

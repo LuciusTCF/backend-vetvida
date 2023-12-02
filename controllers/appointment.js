@@ -8,7 +8,7 @@ const getAppointments = async (req = request, res = response) => {
   const [total, appointment] = await Promise.all([
     Appointment.countDocuments(consult),
     Appointment.find(consult)
-      // .skip(from)
+      .skip(parseInt(from))
       .limit(limit)
       .populate("user", "name email"),
   ]);
