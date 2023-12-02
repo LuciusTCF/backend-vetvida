@@ -1,7 +1,6 @@
 const { request, response } = require("express");
 const Appointment = require("../models/appointment");
 
-
 const getAppointments = async (req = request, res = response) => {
   const { limit = 10, from = 0 } = req.query;
   const consult = { state: true };
@@ -20,8 +19,6 @@ const getAppointments = async (req = request, res = response) => {
   });
 };
 
-
-
 const getAppointment = async (req = request, res = response) => {
   const { id } = req.params;
   const appointment = await Appointment.findById(id).populate(
@@ -37,7 +34,6 @@ const getAppointment = async (req = request, res = response) => {
 const postAppointment = async (req = request, res = response) => {
   const { detail, veterinarian, pet, date } = req.body;
   const user = req.user._id;
-
 
   const appointment = new Appointment({
     detail,
@@ -60,15 +56,12 @@ const postAppointment = async (req = request, res = response) => {
 
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
-<
 
   const { detail, veterinarian, pet, date, state, user } = req.body;
-
 
   const data = { id, detail, veterinarian, pet, date, state, user };
 
   const appointmentDB = await Appointment.findOne({ date });
-
 
   if (appointmentDB) {
     return res.status(400).json({
