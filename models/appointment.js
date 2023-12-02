@@ -7,7 +7,6 @@ const AppointmentSchema = Schema({
   },
   veterinarian: {
     type: String,
-     // enum: ["José Luis Olivares", "Raúl Álvarez"],
     required: [true, "El nombre del veterinario es obligatorio"],
   },
   pet: {
@@ -31,5 +30,11 @@ const AppointmentSchema = Schema({
     required: true,
   },
 });
+
+AppointmentSchema.methods.toJSON = function () {
+  const { __v, _id, ...appointment } = this.toObject();
+  appointment.aid = _id;
+  return appointment;
+};
 
 module.exports = model("Appointment", AppointmentSchema);
