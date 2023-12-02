@@ -25,6 +25,7 @@ const validateJWT = async (req = request, res = response, next) => {
         msg: "El token no se encuentra vigente",
       });
     }
+
     req.user = user;
     next();
   } catch (error) {

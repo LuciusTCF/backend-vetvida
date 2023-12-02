@@ -2,9 +2,8 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
 const { validateJWT } = require("../middlewares/validate-jwt");
-const { isAdminRole, hasRole } = require("../middlewares/validate-role");
+const { isAdminRole } = require("../middlewares/validate-role");
 const { appointmentExist, isVetValid } = require("../helpers/db-validators");
-
 const {
   postAppointment,
   getAppointments,
@@ -39,6 +38,7 @@ router.post(
     check("pet", "El nombre de la mascota es obligatorio").notEmpty(),
     check("date", "La fecha es obligatoria").notEmpty(),
     check("veterinarian").custom(isVetValid),
+
     validateFields,
   ],
   postAppointment

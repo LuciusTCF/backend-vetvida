@@ -20,6 +20,7 @@ const {
 const router = Router();
 
 router.get("/", [validateJWT, hasRole("ADMIN_ROLE")], usersGet);
+
 router.post(
   "/",
   [

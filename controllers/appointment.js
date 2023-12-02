@@ -34,6 +34,7 @@ const getAppointment = async (req = request, res = response) => {
 const postAppointment = async (req = request, res = response) => {
   const { detail, veterinarian, pet, date } = req.body;
   const user = req.user._id;
+
   const appointment = new Appointment({
     detail,
     veterinarian,
@@ -41,6 +42,7 @@ const postAppointment = async (req = request, res = response) => {
     date,
     user,
   });
+
   const appointmentDB = await Appointment.findOne({ date });
 
   if (appointmentDB) {

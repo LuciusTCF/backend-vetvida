@@ -24,33 +24,7 @@ const userPost = async (req = request, res = response) => {
     user,
   });
 };
-// const userPut = async (req = request, res = response) => {
-//   let { id } = req.params;
 
-//   const { password, _id, email, item, ...rest } = req.body;
-
-//   let user = null;
-//   console.log(req.body);
-
-//   if (password) {
-//     const salt = bcrypt.genSaltSync();
-//     rest.password = bcrypt.hashSync(password, salt);
-//   }
-
-//   if (item) {
-//     user = await User.findByIdAndUpdate(
-//       id,
-//       { $push: { pet: item } },
-//       { new: true }
-//     );
-//   } else {
-//     user = await User.findByIdAndUpdate(id, rest, { new: true });
-//   }
-//   res.status(200).json({
-//     message: "Usuario actualizado",
-//     user,
-//   });
-// };
 const userPut = async (req = request, res = response) => {
   const { id } = req.params;
 

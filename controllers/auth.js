@@ -5,7 +5,6 @@ const { generateJWT } = require("../helpers/generate-jwt");
 
 const login = async (req = request, res = response) => {
   const { email, password } = req.body;
-  console.log(req.body);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -40,7 +39,7 @@ const login = async (req = request, res = response) => {
   }
 };
 
-const obtainID = (req = request, res = response) => {
+const getId = (req = request, res = response) => {
   const { id, role } = req.user;
 
   res.json({
@@ -49,4 +48,4 @@ const obtainID = (req = request, res = response) => {
   });
 };
 
-module.exports = { login, obtainID };
+module.exports = { login, getId };
