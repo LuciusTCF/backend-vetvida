@@ -16,7 +16,7 @@ const AppointmentSchema = Schema({
   date: {
     type: Date,
     required: [true, "La fecha es obligatoria"],
-    min: Date.now(),
+    min: Date(),
     default: Date(),
   },
   state: {
