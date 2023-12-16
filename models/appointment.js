@@ -24,6 +24,24 @@ const AppointmentSchema = Schema({
     required: true,
     default: true,
   },
+  client: {
+    type: Object,
+    properties: {
+      nameuser: {
+        type: String,
+        required: [true, "El nombre es obligatorio"],
+      },
+      emailuser: {
+        type: String,
+        required: [true, "El correo es obligatorio"],
+      },
+      iduser: {
+        type: String,
+        required: [true, "La raza es obligatoria"],
+      },
+    },
+    required: [true, "El cliente es obligatorio"],
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
