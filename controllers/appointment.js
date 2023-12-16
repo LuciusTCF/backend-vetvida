@@ -32,7 +32,7 @@ const getAppointment = async (req = request, res = response) => {
 };
 
 const postAppointment = async (req = request, res = response) => {
-  const { detail, veterinarian, pet, date } = req.body;
+  const { detail, veterinarian, pet, date, client } = req.body;
   const user = req.user._id;
 
   const appointment = new Appointment({
@@ -40,6 +40,7 @@ const postAppointment = async (req = request, res = response) => {
     veterinarian,
     pet,
     date,
+    client,
     user,
   });
 
@@ -57,9 +58,9 @@ const postAppointment = async (req = request, res = response) => {
 const putAppointment = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const { detail, veterinarian, pet, date, state, user } = req.body;
+  const { detail, veterinarian, pet, date, state, client, user } = req.body;
 
-  const data = { id, detail, veterinarian, pet, date, state, user };
+  const data = { id, detail, veterinarian, pet, date, state, client, user };
 
   const appointmentDB = await Appointment.findOne({ date });
 
