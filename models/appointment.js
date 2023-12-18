@@ -35,9 +35,13 @@ const AppointmentSchema = Schema({
         type: String,
         required: [true, "El correo es obligatorio"],
       },
+      phoneuser: {
+        type: String,
+        required: [true, "El teléfono es obligatoria"],
+      },
       iduser: {
         type: String,
-        required: [true, "La raza es obligatoria"],
+        required: [true, "El ID es obligatoria"],
       },
     },
     required: [true, "El cliente es obligatorio"],
