@@ -3,11 +3,10 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 const usersGet = async (req = request, res = response) => {
-  const { limit = 10, from = 0 } = req.query;
+  const { limit, from = 0 } = req.query;
   const [total, users] = await Promise.all([
     User.countDocuments({ state: true }),
-    User.find({ state: true }).limit(parseInt(limit))
-    .skip(parseInt(from)),
+    User.find({ state: true }).limit(parseInt(limit)).skip(parseInt(from)),
   ]);
   res.status(200).json({
     total,
